@@ -1,0 +1,1307 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Pù Luông Eco-Bamboo Hub - Du lịch cộng đồng kết hợp du lịch bao trùm dựa trên tài nguyên tre/luồng tại khu bảo tồn thiên nhiên Pù Luông.">
+    <title>Pù Luông Eco-Bamboo Hub | Về thung lũng xanh - Vẽ lành tâm trí</title>
+    
+    <!-- Tích hợp Font chữ Google -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* ==========================================================================
+           1. HỆ THỐNG BIẾN TOÀN CỤC (CSS VARIABLES)
+           ========================================================================== */
+        :root {
+            /* Bảng màu lõi (Bamboo Nature Palette) */
+            --color-primary: #2d5a27;       /* Xanh lá tre đậm */
+            --color-primary-light: #4caf50; /* Xanh lá non */
+            --color-secondary: #d4a373;     /* Vàng tre nướng/đất nung */
+            --color-secondary-dark: #b58555;
+            --color-bg-light: #f4f9f4;      /* Xanh nền nhạt */
+            --color-bg-white: #ffffff;
+            --color-text-main: #333333;
+            --color-text-muted: #666666;
+            --color-border: #e0e0e0;
+
+            /* Hiệu ứng bóng đổ (Shadows) */
+            --shadow-sm: 0 2px 8px rgba(45, 90, 39, 0.08);
+            --shadow-md: 0 8px 24px rgba(45, 90, 39, 0.12);
+            --shadow-lg: 0 15px 35px rgba(0, 0, 0, 0.15);
+
+            /* Thiết lập typography */
+            --font-heading: 'Playfair Display', serif;
+            --font-body: 'Roboto', sans-serif;
+            --transition-smooth: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        /* ==========================================================================
+           2. RESET & CẤU TRÚC LÕI (BASE STYLES)
+           ========================================================================== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth; /* Cuộn trang mượt mà */
+            font-size: 16px;
+        }
+
+        body {
+            font-family: var(--font-body);
+            color: var(--color-text-main);
+            background-color: var(--color-bg-light);
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: var(--font-heading);
+            color: var(--color-primary);
+            font-weight: 700;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .section-padding {
+            padding: 100px 0;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+            position: relative;
+        }
+
+        .section-header h2 {
+            font-size: 2.8rem;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .section-header p {
+            font-size: 1.1rem;
+            color: var(--color-text-muted);
+            max-width: 700px;
+            margin: 0 auto;
+            font-style: italic;
+        }
+
+        .section-header::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 3px;
+            background-color: var(--color-secondary);
+            margin: 20px auto 0;
+            border-radius: 2px;
+        }
+
+        /* Hiệu ứng xuất hiện khi cuộn trang */
+        .reveal {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: var(--transition-smooth);
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ==========================================================================
+           3. NAVBAR (THANH ĐIỀU HƯỚNG)
+           ========================================================================== */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 20px 0;
+            background-color: transparent;
+            z-index: 1000;
+            transition: var(--transition-smooth);
+        }
+
+        .navbar.scrolled {
+            background-color: var(--color-primary);
+            padding: 15px 0;
+            box-shadow: var(--shadow-md);
+        }
+
+        .navbar .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: var(--font-heading);
+            font-size: 1.8rem;
+            color: var(--color-bg-white);
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo span {
+            color: var(--color-secondary);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+
+        .nav-links li a {
+            color: var(--color-bg-white);
+            font-weight: 500;
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            position: relative;
+            transition: var(--transition-smooth);
+        }
+
+        .nav-links li a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background-color: var(--color-secondary);
+            transition: var(--transition-smooth);
+        }
+
+        .nav-links li a:hover::after {
+            width: 100%;
+        }
+
+        .nav-links li a:hover {
+            color: var(--color-secondary);
+        }
+
+        .btn-primary {
+            display: inline-block;
+            padding: 12px 30px;
+            background-color: var(--color-secondary);
+            color: var(--color-text-main);
+            font-weight: 700;
+            border-radius: 30px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: var(--transition-smooth);
+            border: 2px solid transparent;
+            cursor: pointer;
+        }
+
+        .btn-primary:hover {
+            background-color: transparent;
+            color: var(--color-secondary);
+            border-color: var(--color-secondary);
+        }
+
+        /* ==========================================================================
+           4. HERO SECTION (MÀN HÌNH CHÍNH)
+           ========================================================================== */
+        .hero {
+            height: 100vh;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            overflow: hidden;
+            background: url('pu-luong-retreat-thanh-hoa-ivivu-6.jpg') center/cover no-repeat;
+            background-attachment: fixed;
+        }
+
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, rgba(45, 90, 39, 0.7), rgba(0, 0, 0, 0.5));
+            z-index: 1;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            color: var(--color-bg-white);
+            max-width: 900px;
+            padding: 0 20px;
+        }
+
+        .hero-content h1 {
+            font-size: 4.5rem;
+            color: var(--color-bg-white);
+            margin-bottom: 20px;
+            text-shadow: 2px 4px 10px rgba(0,0,0,0.5);
+            animation: fadeInDown 1s ease-out;
+        }
+
+        .hero-content p {
+            font-size: 1.8rem;
+            font-family: var(--font-heading);
+            font-style: italic;
+            color: var(--color-secondary);
+            margin-bottom: 40px;
+            animation: fadeInUp 1s ease-out 0.5s both;
+        }
+
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ==========================================================================
+           5. SECTION GIỚI THIỆU & LỊCH SỬ (ABOUT)
+           ========================================================================== */
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: center;
+        }
+
+        .about-text h3 {
+            font-size: 2.2rem;
+            margin-bottom: 20px;
+        }
+
+        .about-text p {
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+            text-align: justify;
+            color: var(--color-text-muted);
+        }
+
+        .highlight-quote {
+            border-left: 4px solid var(--color-secondary);
+            padding-left: 20px;
+            margin: 30px 0;
+            font-style: italic;
+            font-size: 1.2rem;
+            color: var(--color-primary);
+            background-color: var(--color-bg-white);
+            padding: 20px;
+            border-radius: 0 10px 10px 0;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .about-image {
+            position: relative;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .about-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: transform 0.8s ease;
+        }
+
+        .about-image:hover img {
+            transform: scale(1.05);
+        }
+
+        /* ==========================================================================
+           6. SECTION BỘ SƯU TẬP (GALLERY PÙ LUÔNG)
+           ========================================================================== */
+        .gallery-section {
+            background-color: var(--color-bg-white);
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .gallery-item {
+            position: relative;
+            height: 350px;
+            border-radius: 15px;
+            overflow: hidden;
+            cursor: pointer;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s ease;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+
+        .gallery-caption {
+            position: absolute;
+            bottom: -50px;
+            left: 0;
+            width: 100%;
+            padding: 20px;
+            background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);
+            color: var(--color-bg-white);
+            transition: var(--transition-smooth);
+            opacity: 0;
+        }
+
+        .gallery-item:hover .gallery-caption {
+            bottom: 0;
+            opacity: 1;
+        }
+
+        .gallery-caption h4 {
+            color: var(--color-secondary);
+            font-size: 1.4rem;
+            margin-bottom: 5px;
+        }
+
+        /* ==========================================================================
+           7. SECTION HOẠT ĐỘNG TRẢI NGHIỆM
+           ========================================================================== */
+        .experience-cards {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+
+        .exp-card {
+            background-color: var(--color-bg-white);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: var(--shadow-md);
+            transition: var(--transition-smooth);
+            position: relative;
+            z-index: 1;
+        }
+
+        .exp-card:hover {
+            transform: translateY(-15px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .exp-card-img {
+            height: 220px;
+            overflow: hidden;
+        }
+
+        .exp-card-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .exp-card:hover .exp-card-img img {
+            transform: scale(1.1);
+        }
+
+        .exp-card-body {
+            padding: 30px 20px;
+            text-align: center;
+        }
+
+        .exp-card-body h4 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+        }
+
+        .exp-card-body p {
+            color: var(--color-text-muted);
+            font-size: 1rem;
+            margin-bottom: 20px;
+        }
+
+        /* ==========================================================================
+           8. SECTION GÓI TOUR (PRICING/BUNDLING)
+           ========================================================================== */
+        .tour-section {
+            background-color: var(--color-primary);
+            color: var(--color-bg-white);
+        }
+
+        .tour-section .section-header h2 {
+            color: var(--color-bg-white);
+        }
+
+        .tour-section .section-header p {
+            color: #d1e2d1;
+        }
+
+        .tour-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            align-items: center;
+        }
+
+        .tour-card {
+            background-color: var(--color-bg-white);
+            color: var(--color-text-main);
+            border-radius: 20px;
+            padding: 40px 30px;
+            text-align: center;
+            box-shadow: var(--shadow-lg);
+            position: relative;
+            transition: var(--transition-smooth);
+        }
+
+        .tour-card.featured {
+            transform: scale(1.08);
+            border: 3px solid var(--color-secondary);
+            z-index: 2;
+        }
+
+        .tour-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .tour-card.featured:hover {
+            transform: scale(1.08) translateY(-10px);
+        }
+
+        .tour-badge {
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: var(--color-secondary);
+            color: var(--color-text-main);
+            padding: 5px 20px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+        }
+
+        .tour-card h3 {
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+        }
+
+        .tour-card .price {
+            font-size: 2.5rem;
+            color: var(--color-primary);
+            font-weight: 700;
+            margin-bottom: 20px;
+            font-family: var(--font-body);
+        }
+
+        .tour-card .price span {
+            font-size: 1rem;
+            color: var(--color-text-muted);
+            font-weight: 400;
+        }
+
+        .tour-features {
+            list-style: none;
+            margin-bottom: 30px;
+            text-align: left;
+        }
+
+        .tour-features li {
+            padding: 10px 0;
+            border-bottom: 1px solid var(--color-border);
+            font-size: 1.05rem;
+            position: relative;
+            padding-left: 30px;
+        }
+
+        .tour-features li::before {
+            content: '🌿';
+            position: absolute;
+            left: 0;
+            top: 10px;
+            color: var(--color-primary-light);
+        }
+
+        /* ==========================================================================
+           9. SECTION TIN TỨC (BLOG/NEWS)
+           ========================================================================== */
+        .news-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 40px;
+        }
+
+        .news-card {
+            display: flex;
+            background-color: var(--color-bg-white);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition-smooth);
+        }
+
+        .news-card:hover {
+            box-shadow: var(--shadow-md);
+            transform: translateY(-5px);
+        }
+
+        .news-img {
+            flex: 0 0 40%;
+            overflow: hidden;
+        }
+
+        .news-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .news-card:hover .news-img img {
+            transform: scale(1.1);
+        }
+
+        .news-content {
+            padding: 25px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .news-content h4 {
+            font-size: 1.4rem;
+            margin-bottom: 10px;
+            line-height: 1.4;
+        }
+
+        .news-content p {
+            color: var(--color-text-muted);
+            margin-bottom: 15px;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .news-date {
+            font-size: 0.9rem;
+            color: var(--color-secondary-dark);
+            font-weight: 600;
+        }
+
+        /* ==========================================================================
+           10. FOOTER
+           ========================================================================== */
+        footer {
+            background-color: #1a3317; /* Xanh lá cực thẫm */
+            color: #d1e2d1;
+            padding: 80px 0 20px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 50px;
+        }
+
+        .footer-about h3 {
+            font-family: var(--font-heading);
+            font-size: 1.8rem;
+            color: var(--color-bg-white);
+            margin-bottom: 20px;
+        }
+
+        .footer-about span {
+            color: var(--color-secondary);
+        }
+
+        .footer-about p {
+            margin-bottom: 20px;
+            line-height: 1.8;
+        }
+
+        .footer-links h4 {
+            color: var(--color-bg-white);
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .footer-links h4::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 30px;
+            height: 2px;
+            background-color: var(--color-secondary);
+        }
+
+        .footer-links ul {
+            list-style: none;
+        }
+
+        .footer-links ul li {
+            margin-bottom: 12px;
+        }
+
+        .footer-links ul li a {
+            transition: var(--transition-smooth);
+        }
+
+        .footer-links ul li a:hover {
+            color: var(--color-secondary);
+            padding-left: 5px;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            font-size: 0.9rem;
+        }
+
+        /* ==========================================================================
+           11. HỆ THỐNG CHATBOT (OPEX OPTIMIZATION)
+           ========================================================================== */
+        .chat-widget {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 9999;
+        }
+
+        .chat-btn {
+            width: 65px;
+            height: 65px;
+            background-color: var(--color-secondary);
+            color: var(--color-text-main);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 30px;
+            cursor: pointer;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+            transition: var(--transition-smooth);
+            border: none;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
+            40% {transform: translateY(-10px);}
+            60% {transform: translateY(-5px);}
+        }
+
+        .chat-btn:hover {
+            background-color: var(--color-primary);
+            color: var(--color-bg-white);
+            animation: none;
+            transform: scale(1.1);
+        }
+
+        .chat-window {
+            position: absolute;
+            bottom: 85px;
+            right: 0;
+            width: 360px;
+            height: 520px;
+            background-color: var(--color-bg-white);
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            transform: scale(0);
+            transform-origin: bottom right;
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .chat-window.active {
+            transform: scale(1);
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .chat-header {
+            background: linear-gradient(135deg, var(--color-primary), var(--color-primary-light));
+            color: var(--color-bg-white);
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .chat-header h4 {
+            color: var(--color-bg-white);
+            font-size: 1.2rem;
+            margin: 0;
+        }
+
+        .chat-close {
+            cursor: pointer;
+            font-size: 1.2rem;
+            transition: transform 0.3s;
+        }
+
+        .chat-close:hover {
+            transform: rotate(90deg);
+        }
+
+        .chat-body {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+            background-color: #f0f4f0;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        /* Định dạng tin nhắn */
+        .chat-msg {
+            max-width: 85%;
+            padding: 12px 16px;
+            border-radius: 18px;
+            font-size: 0.95rem;
+            line-height: 1.5;
+            position: relative;
+            animation: popIn 0.3s ease-out forwards;
+        }
+
+        @keyframes popIn {
+            0% { opacity: 0; transform: scale(0.8) translateY(10px); }
+            100% { opacity: 1; transform: scale(1) translateY(0); }
+        }
+
+        .msg-bot {
+            background-color: var(--color-bg-white);
+            color: var(--color-text-main);
+            align-self: flex-start;
+            border-bottom-left-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            border: 1px solid #e9ece9;
+        }
+
+        .msg-user {
+            background-color: var(--color-primary);
+            color: var(--color-bg-white);
+            align-self: flex-end;
+            border-bottom-right-radius: 5px;
+            box-shadow: 0 2px 5px rgba(45, 90, 39, 0.2);
+        }
+
+        .chat-options {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-top: 10px;
+        }
+
+        .chat-option-btn {
+            background-color: var(--color-bg-white);
+            border: 1px solid var(--color-primary);
+            color: var(--color-primary);
+            padding: 10px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+            text-align: left;
+            font-size: 0.9rem;
+            transition: var(--transition-smooth);
+            font-weight: 500;
+        }
+
+        .chat-option-btn:hover {
+            background-color: var(--color-primary);
+            color: var(--color-bg-white);
+            padding-left: 20px;
+        }
+
+        /* Typing indicator (giả lập bot đang gõ) */
+        .typing-indicator {
+            display: none;
+            align-self: flex-start;
+            background-color: var(--color-bg-white);
+            padding: 12px 16px;
+            border-radius: 18px;
+            border-bottom-left-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            gap: 5px;
+        }
+
+        .typing-indicator span {
+            width: 8px;
+            height: 8px;
+            background-color: var(--color-text-muted);
+            border-radius: 50%;
+            animation: typingBounce 1.4s infinite ease-in-out both;
+        }
+
+        .typing-indicator span:nth-child(1) { animation-delay: -0.32s; }
+        .typing-indicator span:nth-child(2) { animation-delay: -0.16s; }
+        
+        @keyframes typingBounce {
+            0%, 80%, 100% { transform: scale(0); }
+            40% { transform: scale(1); }
+        }
+
+        /* ==========================================================================
+           12. RESPONSIVE DESIGN (THIẾT KẾ ĐÁP ỨNG ĐA THIẾT BỊ)
+           ========================================================================== */
+        @media (max-width: 992px) {
+            .about-grid, .news-grid { grid-template-columns: 1fr; }
+            .gallery-grid, .experience-cards, .tour-grid { grid-template-columns: repeat(2, 1fr); }
+            .hero-content h1 { font-size: 3.5rem; }
+            .footer-grid { grid-template-columns: 1fr 1fr; }
+        }
+
+        @media (max-width: 768px) {
+            .gallery-grid, .experience-cards, .tour-grid { grid-template-columns: 1fr; }
+            .nav-links { display: none; /* Dành cho menu hamburger trong thực tế */ }
+            .hero-content h1 { font-size: 2.5rem; }
+            .footer-grid { grid-template-columns: 1fr; }
+            .news-card { flex-direction: column; }
+            .news-img { height: 200px; }
+            .chat-window { width: calc(100vw - 40px); right: -10px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- THANH ĐIỀU HƯỚNG -->
+    <nav class="navbar" id="navbar">
+        <div class="container">
+            <a href="#" class="logo">🎋 PÙ LUÔNG <span>HUB</span></a>
+            <ul class="nav-links">
+                <li><a href="#ve-chung-toi">Về Pù Luông</a></li>
+                <li><a href="#trai-nghiem">Trải Nghiệm</a></li>
+                <li><a href="#goi-tour">Gói Tour</a></li>
+                <li><a href="#tin-tuc">Tin Tức</a></li>
+            </ul>
+            <a href="#goi-tour" class="btn-primary">Đặt Phòng Ngay</a>
+        </div>
+    </nav>
+
+    <!-- MÀN HÌNH CHÍNH (HERO) -->
+    <section class="hero">
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <h1>Pù Luông Eco-Bamboo</h1>
+            <p>"Về thung lũng xanh – Vẽ lành tâm trí"</p>
+            <a href="#ve-chung-toi" class="btn-primary">Khám Phá Hành Trình</a>
+        </div>
+    </section>
+
+    <!-- GIỚI THIỆU & LỊCH SỬ HÌNH THÀNH -->
+    <section id="ve-chung-toi" class="section-padding">
+        <div class="container">
+            <div class="section-header reveal">
+                <h2>Bản Giao Hưởng Sinh Thái</h2>
+                <p>Khởi nguồn từ khát vọng bảo tồn tài nguyên tre luồng và văn hóa bản địa</p>
+            </div>
+            
+            <div class="about-grid">
+                <div class="about-text reveal">
+                    <h3>Du Lịch Bao Trùm (Inclusive Tourism)</h3>
+                    <p>Pù Luông Eco-Bamboo Hub ra đời không chỉ như một điểm lưu trú, mà là một mô hình <strong>Kinh doanh Xã hội</strong> tiên phong tại Thanh Hóa. Chúng tôi chuyển hóa tài nguyên thiên nhiên – những rừng tre luồng dồi dào tại vùng lõi Pù Luông – thành chuỗi giá trị du lịch bền vững.</p>
+                    
+                    <div class="highlight-quote">
+                        Sự đối thoại giao hòa giữa hai nền văn hóa Thái - Mường, nơi nghệ nhân bản địa trở thành người kể chuyện.
+                    </div>
+                    
+                    <p>Bằng việc liên kết với các hộ dân địa phương tận dụng nhà sàn có sẵn, áp dụng bí quyết công nghệ hấp sấy tre hữu cơ không hóa chất, dự án giải quyết xuất sắc bài toán sinh kế (Mục 7 - Nguồn lực chính). Mỗi bước chân của bạn tại đây, mỗi sản phẩm tre bạn sử dụng đều trực tiếp đóng góp vào quỹ bảo vệ môi trường.</p>
+                </div>
+                <div class="about-image reveal" style="transition-delay: 0.2s;">
+                    <img src="images.jpg" alt="Văn hóa bản địa Pù Luông Thái Mường">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- BỘ SƯU TẬP (GALLERY) -->
+    <section class="gallery-section section-padding">
+        <div class="container">
+            <div class="section-header reveal">
+                <h2>Cảnh Sắc Vùng Lõi</h2>
+                <p>Khung cảnh thiên nhiên chữa lành với thung lũng ruộng bậc thang khép kín, sương mây vờn hiên nhà</p>
+            </div>
+            
+            <div class="gallery-grid">
+                <div class="gallery-item reveal">
+                    <img src="tat-tan-tat-kinh-nghiem-du-lich-pu-luong-chi-tiet-tu-a-z-202107162003447590.jpg" alt="Ruộng bậc thang Pù Luông mùa lúa chín">
+                    <div class="gallery-caption">
+                        <h4>Mùa Lúa Chín</h4>
+                        <p>Ruộng bậc thang Pù Luông rực rỡ sắc vàng.</p>
+                    </div>
+                </div>
+                <div class="gallery-item reveal" style="transition-delay: 0.2s;">
+                    <img src="puluong1-960x540.jpg" alt="Bình minh tại Pù Luông">
+                    <div class="gallery-caption">
+                        <h4>Sương Mây Vờn Hiên</h4>
+                        <p>Khí hậu mát mẻ, sương mù bao phủ thung lũng sáng sớm.</p>
+                    </div>
+                </div>
+                <div class="gallery-item reveal" style="transition-delay: 0.4s;">
+                    <img src="a4.jpg" alt="Thác nước tự nhiên Pù Luông">
+                    <div class="gallery-caption">
+                        <h4>Thác Hươu / Thác Bản Hiêu</h4>
+                        <p>Dòng suối trong vắt róc rách giữa rừng già nguyên sinh.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- HOẠT ĐỘNG TRẢI NGHIỆM -->
+    <section id="trai-nghiem" class="section-padding">
+        <div class="container">
+            <div class="section-header reveal">
+                <h2>Chạm Vào Văn Hóa Nguyên Bản</h2>
+                <p>Các hoạt động được thiết kế chuyên sâu, tối ưu hóa điểm chạm trải nghiệm (Experience Design)</p>
+            </div>
+            
+            <div class="experience-cards">
+                <div class="exp-card reveal">
+                    <div class="exp-card-img">
+                        <img src="tour-mai-chau-pu-luong-thac-may-thanh-hoa.jpg" alt="Trekking và Chèo bè tre">
+                    </div>
+                    <div class="exp-card-body">
+                        <h4>Trekking & Chèo Bè Tre</h4>
+                        <p>Không chỉ là đi bộ, hướng dẫn viên bản địa sẽ kể cho bạn nghe những câu chuyện về hệ sinh thái rừng Pù Luông. Trải nghiệm chèo bè tre mộc mạc trên dòng suối tự nhiên.</p>
+                    </div>
+                </div>
+                
+                <div class="exp-card reveal" style="transition-delay: 0.2s;">
+                    <div class="exp-card-img">
+                        <img src="kinh-nghiem-du-lich-pu-luong-3.jpg" alt="Workshop đồ thủ công tre">
+                    </div>
+                    <div class="exp-card-body">
+                        <h4>Workshop Nghệ Nhân Tre</h4>
+                        <p>Tự tay cưa, mài và làm ra chiếc sáo nứa, cốc giữ nhiệt bằng tre hữu cơ dưới sự hướng dẫn của nghệ nhân đan lát. Món quà lưu niệm độc bản mang về thành phố.</p>
+                    </div>
+                </div>
+                
+                <div class="exp-card reveal" style="transition-delay: 0.4s;">
+                    <div class="exp-card-img">
+                        <img src="pu-luong-ivivu-8.jpg" alt="Ẩm thực Farm to table Pù Luông">
+                    </div>
+                    <div class="exp-card-body">
+                        <h4>Ẩm Thực "Farm-to-Table"</h4>
+                        <p>Thưởng thức Gà nướng nứa, Cơm lam nguyên bản. Chuỗi cung ứng ngắn từ vườn của người nông dân trực tiếp lên bàn ăn giúp tối ưu hương vị và sức khỏe.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- GÓI TOUR & LƯU TRÚ (REVENUE STREAMS) -->
+    <section id="goi-tour" class="tour-section section-padding">
+        <div class="container">
+            <div class="section-header reveal">
+                <h2>Gói Nghỉ Dưỡng Chữa Lành</h2>
+                <p>Áp dụng chiến lược đóng gói sản phẩm (Product Bundling) nhằm tối ưu trải nghiệm khách hàng</p>
+            </div>
+            
+            <div class="tour-grid">
+                <!-- Gói 1 -->
+                <div class="tour-card reveal">
+                    <h3>Gói Tinh Gọn (2N1Đ)</h3>
+                    <div class="price">1.200.000đ <span>/ khách</span></div>
+                    <ul class="tour-features">
+                        <li>Lưu trú nhà sàn thuần tre view thung lũng</li>
+                        <li>3 bữa ăn chuẩn "Farm-to-table"</li>
+                        <li>Tham gia Workshop làm cốc tre thủ công</li>
+                        <li>Trải nghiệm hệ sinh thái âm thanh guồng nước</li>
+                        <li>Vé tham quan khu bảo tồn</li>
+                    </ul>
+                    <button class="btn-primary" style="width: 100%; margin-top: 20px;" onclick="openChatWithContext('book')">Tư Vấn Đặt Phòng</button>
+                </div>
+                
+                <!-- Gói 2 (Chim mồi / Bán chạy nhất) -->
+                <div class="tour-card featured reveal" style="transition-delay: 0.2s;">
+                    <div class="tour-badge">Lựa chọn tối ưu</div>
+                    <h3>Gói Sống Chậm (3N2Đ)</h3>
+                    <div class="price">2.500.000đ <span>/ khách</span></div>
+                    <ul class="tour-features">
+                        <li>2 đêm lưu trú nhà sàn khép kín</li>
+                        <li>Toàn bộ các bữa ăn đặc sản Thái - Mường</li>
+                        <li>Workshop làm sáo nứa và nướng cơm lam</li>
+                        <li>Trekking xuyên lõi rừng & Chèo bè tre</li>
+                        <li>Tặng ly tre khắc tên độc bản mang về</li>
+                    </ul>
+                    <button class="btn-primary" style="width: 100%; margin-top: 20px; background-color: var(--color-primary); color: white;" onclick="openChatWithContext('book')">Tư Vấn Đặt Phòng</button>
+                </div>
+                
+                <!-- Gói 3 -->
+                <div class="tour-card reveal" style="transition-delay: 0.4s;">
+                    <h3>Nghỉ Dưỡng Dài Ngày</h3>
+                    <div class="price">Liên Hệ <span>/ Tùy chỉnh</span></div>
+                    <ul class="tour-features">
+                        <li>Dành riêng cho khách Workation / Chữa lành</li>
+                        <li>Thiết kế cho đoàn doanh nghiệp nhỏ, học sinh</li>
+                        <li>Đào tạo cộng đồng: giao lưu văn hóa chuyên sâu</li>
+                        <li>Tích hợp các liệu pháp thiền, chăm sóc sức khỏe</li>
+                        <li>Chiết khấu đặc biệt từ Hợp tác xã du lịch</li>
+                    </ul>
+                    <button class="btn-primary" style="width: 100%; margin-top: 20px;" onclick="openChatWithContext('book')">Tư Vấn Thiết Kế</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- TIN TỨC & BLOG -->
+    <section id="tin-tuc" class="section-padding">
+        <div class="container">
+            <div class="section-header reveal">
+                <h2>Cẩm Nang & Tin Tức</h2>
+                <p>Những thông tin mới nhất về bảo tồn thiên nhiên và du lịch sinh thái</p>
+            </div>
+            
+            <div class="news-grid">
+                <div class="news-card reveal">
+                    <div class="news-img">
+                        <img src="be-boi-vo-cuc-1710169438.jpg" alt="Phát triển du lịch xanh Pù Luông">
+                    </div>
+                    <div class="news-content">
+                        <div class="news-date">10 Tháng 7, 2026</div>
+                        <h4>Xu hướng Du lịch Bao trùm lên ngôi sau đại dịch</h4>
+                        <p>Mô hình Kinh doanh xã hội tại Pù Luông đang chứng minh tính hiệu quả khi không chỉ mang lại doanh thu mà còn nâng cao kỹ năng cho đồng bào dân tộc, giải quyết sinh kế bền vững thông qua tài nguyên tre luồng...</p>
+                        <a href="#" style="color: var(--color-primary); font-weight: 500; margin-top: 10px; display: inline-block;">Đọc tiếp ⟶</a>
+                    </div>
+                </div>
+                
+                <div class="news-card reveal" style="transition-delay: 0.2s;">
+                    <div class="news-img">
+                        <img src="pu-luong-retreat-thanh-hoa-ivivu-6.jpg" alt="Thời điểm du lịch Pù Luông">
+                    </div>
+                    <div class="news-content">
+                        <div class="news-date">28 Tháng 6, 2026</div>
+                        <h4>Kinh nghiệm du lịch Pù Luông: Tháng nào lúa chín đẹp nhất?</h4>
+                        <p>Để bắt trọn khoảnh khắc "thung lũng vàng", du khách nên sắp xếp thời gian đến Pù Luông vào khoảng cuối tháng 5, đầu tháng 6 hoặc tháng 9, tháng 10 hàng năm. Khí hậu lúc này vô cùng trong lành và mát mẻ...</p>
+                        <a href="#" style="color: var(--color-primary); font-weight: 500; margin-top: 10px; display: inline-block;">Đọc tiếp ⟶</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-about">
+                    <h3>🎋 PÙ LUÔNG <span>HUB</span></h3>
+                    <p>Dự án Kinh doanh Xã hội dựa trên nguồn lực bản địa. Chúng tôi cam kết trích <strong>5% đến 10% doanh thu</strong> để đóng góp cho các hoạt động tái trồng rừng và an sinh xã hội địa phương.</p>
+                </div>
+                
+                <div class="footer-links">
+                    <h4>Về Dự Án</h4>
+                    <ul>
+                        <li><a href="#">Lịch sử hình thành</a></li>
+                        <li><a href="#">Đội ngũ sáng lập</a></li>
+                        <li><a href="#">Báo cáo Tác động Xã hội</a></li>
+                        <li><a href="#">Đào tạo cộng đồng</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-links">
+                    <h4>Hỗ Trợ</h4>
+                    <ul>
+                        <li><a href="#">Chính sách Đặt/Hủy phòng</a></li>
+                        <li><a href="#">Hướng dẫn di chuyển</a></li>
+                        <li><a href="#">Câu hỏi thường gặp (FAQ)</a></li>
+                        <li><a href="#">Bảo mật thông tin</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-links">
+                    <h4>Kết Nối (Kênh Kinh Doanh)</h4>
+                    <ul>
+                        <li><a href="#">Facebook Fanpage</a></li>
+                        <li><a href="#">TikTok Trải Nghiệm</a></li>
+                        <li><a href="#">Instagram Hùng Vĩ</a></li>
+                        <li><a href="#">Zalo Official Account</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2026 Pù Luông Eco-Bamboo Hub. Được vận hành bởi Cộng đồng Thái - Mường địa phương.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ==========================================================================
+         HỆ THỐNG CHATBOT (GIAO DIỆN & LOGIC)
+         ========================================================================== -->
+    <div class="chat-widget">
+        <button class="chat-btn" id="chatBtn" aria-label="Mở Chatbot">
+            💬
+        </button>
+        
+        <div class="chat-window" id="chatWindow">
+            <div class="chat-header">
+                <h4>Hỗ Trợ Sinh Thái 24/7</h4>
+                <span class="chat-close" id="chatClose">✖</span>
+            </div>
+            
+            <div class="chat-body" id="chatBody">
+                <div class="chat-msg msg-bot">
+                    Dạ chào bạn! Eco-Bamboo Hub rất vui được hỗ trợ bạn. Bạn đang quan tâm đến hành trình "về thung lũng xanh" nào ạ? 🌿
+                </div>
+                
+                <!-- Nút tùy chọn câu hỏi -->
+                <div class="chat-options" id="chatOptions">
+                    <button class="chat-option-btn" data-type="price">💰 Hỏi về giá cả các gói tour</button>
+                    <button class="chat-option-btn" data-type="activity">🏕️ Các hoạt động du lịch có gì?</button>
+                    <button class="chat-option-btn" data-type="book">📅 Làm sao để đặt (Book) tour?</button>
+                    <button class="chat-option-btn" data-type="general">ℹ️ Thông tin chung về Pù Luông</button>
+                </div>
+
+                <!-- Dấu 3 chấm khi bot đang "gõ" -->
+                <div class="typing-indicator" id="typingIndicator">
+                    <span></span><span></span><span></span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SCRIPT XỬ LÝ GIAO DIỆN & CHATBOT -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // 1. Logic cho Navbar khi cuộn trang
+            const navbar = document.getElementById('navbar');
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 50) {
+                    navbar.classList.add('scrolled');
+                } else {
+                    navbar.classList.remove('scrolled');
+                }
+            });
+
+            // 2. Scroll Animation (Hiệu ứng khi cuộn)
+            const reveals = document.querySelectorAll('.reveal');
+            function revealAnimation() {
+                let windowHeight = window.innerHeight;
+                let elementVisible = 100;
+                
+                reveals.forEach(reveal => {
+                    let elementTop = reveal.getBoundingClientRect().top;
+                    if (elementTop < windowHeight - elementVisible) {
+                        reveal.classList.add('active');
+                    }
+                });
+            }
+            window.addEventListener('scroll', revealAnimation);
+            revealAnimation(); // Kích hoạt ngay lúc tải trang
+
+            // 3. Hệ thống Chatbot (Tối ưu OPEX theo BMC)
+            const chatBtn = document.getElementById('chatBtn');
+            const chatWindow = document.getElementById('chatWindow');
+            const chatClose = document.getElementById('chatClose');
+            const chatBody = document.getElementById('chatBody');
+            const chatOptions = document.getElementById('chatOptions');
+            const typingIndicator = document.getElementById('typingIndicator');
+            const optionBtns = document.querySelectorAll('.chat-option-btn');
+
+            // Đóng/Mở Chat
+            chatBtn.addEventListener('click', () => chatWindow.classList.add('active'));
+            chatClose.addEventListener('click', () => chatWindow.classList.remove('active'));
+
+            // Cơ sở dữ liệu kịch bản trả lời (Knowledge Base)
+            const botResponses = {
+                'price': 'Dạ, hiện Hub đang triển khai Gói Tinh Gọn 2N1Đ (1.200.000đ/khách) và Gói Sống Chậm 3N2Đ (2.500.000đ/khách). Mức giá này đã bao gồm trọn gói: Lưu trú nhà sàn thuần tre, Ẩm thực Farm-to-table, các Workshop thủ công mỹ nghệ và Trekking/Chèo bè rồi ạ!',
+                'activity': 'Tại Pù Luông Eco-Bamboo, bạn sẽ được tự tay cưa mài, làm sáo nứa/cốc tre hữu cơ cùng nghệ nhân; Trekking xuyên lõi rừng nghe kể chuyện sinh thái; chèo bè tre trên suối và thưởng thức mâm cơm lá nguyên bản Thái - Mường.',
+                'book': 'Để trải nghiệm quy trình tư vấn "Cá nhân hóa dịch vụ" tốt nhất, bạn vui lòng để lại Số Điện Thoại tại đây, hoặc nhắn tin trực tiếp qua Zalo/Fanpage của Hub. Đội ngũ tư vấn viên sẽ liên hệ giữ phòng có view thung lũng đẹp nhất cho bạn ngay lập tức!',
+                'general': 'Khu bảo tồn thiên nhiên Pù Luông (Thanh Hóa) nổi tiếng với hệ thống ruộng bậc thang khép kín, khí hậu mát mẻ và văn hóa Thái - Mường đặc sắc. Tại Hub, mọi cơ sở vật chất đều làm từ tre/luồng hữu cơ, cam kết không rác thải nhựa để chữa lành tâm trí trọn vẹn.'
+            };
+
+            const userQueries = {
+                'price': 'Tôi muốn hỏi về giá cả các gói tour',
+                'activity': 'Các hoạt động du lịch, trải nghiệm ở đây có gì?',
+                'book': 'Tôi muốn biết cách thức đặt tour / book phòng',
+                'general': 'Tôi muốn biết thêm thông tin chung về Pù Luông'
+            };
+
+            // Hàm xử lý khi người dùng chọn một nút
+            optionBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    let type = this.getAttribute('data-type');
+                    handleUserSelect(type);
+                });
+            });
+
+            function handleUserSelect(type) {
+                // Ẩn bảng tùy chọn
+                chatOptions.style.display = 'none';
+
+                // In tin nhắn của User
+                addMessage(userQueries[type], 'msg-user');
+                
+                // Cuộn xuống cuối
+                chatBody.scrollTop = chatBody.scrollHeight;
+
+                // Hiện hiệu ứng Bot đang gõ (Typing Indicator)
+                typingIndicator.style.display = 'flex';
+                chatBody.appendChild(typingIndicator); // Di chuyển typing xuống cuối
+                chatBody.scrollTop = chatBody.scrollHeight;
+
+                // Giả lập thời gian Bot suy nghĩ và phản hồi (OPEX automation)
+                setTimeout(() => {
+                    typingIndicator.style.display = 'none';
+                    addMessage(botResponses[type], 'msg-bot');
+                    
+                    // Hiện lại bảng tùy chọn ở cuối
+                    chatOptions.style.display = 'flex';
+                    chatBody.appendChild(chatOptions);
+                    chatBody.scrollTop = chatBody.scrollHeight;
+                }, 1500); // 1.5 giây
+            }
+
+            function addMessage(text, className) {
+                const msgDiv = document.createElement('div');
+                msgDiv.className = `chat-msg ${className}`;
+                msgDiv.innerText = text;
+                chatBody.insertBefore(msgDiv, typingIndicator);
+            }
+
+            // Hàm hỗ trợ mở chat từ các nút "Đặt Phòng" ở ngoài trang (Omnichannel flow)
+            window.openChatWithContext = function(type) {
+                chatWindow.classList.add('active');
+                setTimeout(() => {
+                    handleUserSelect(type);
+                }, 500);
+            }
+        });
+    </script>
+</body>
+</html>
